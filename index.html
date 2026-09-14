@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kainoa's Hawaiian Grill | Rexburg Concept Storefront</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF5A1F;
+      --primary-hover: #E04810;
+      --dark: #0F172A;
+      --dark-card: #1E293B;
+      --light-bg: #F8FAFC;
+      --white: #FFFFFF;
+      --gray-text: #64748B;
+      --accent-yellow: #FFC72C;
+      --green: #10B981;
+      --radius-lg: 20px;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--light-bg); color: var(--dark); line-height: 1.5; overflow-x: hidden; }
+    h1, h2, h3, h4, .heading { font-family: 'Outfit', sans-serif; }
+
+    /* Announcement Bar */
+    .top-bar {
+      background: var(--dark); color: #FFF; font-size: 0.85rem; padding: 8px 16px; text-align: center;
+      display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .badge-open { background: var(--green); color: white; padding: 2px 8px; border-radius: 20px; font-weight: 700; font-size: 0.75rem; }
+
+    /* Header Nav */
+    .navbar {
+      position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px); border-bottom: 1px solid #E2E8F0; padding: 14px 5%;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo { font-size: 1.3rem; font-weight: 900; color: var(--dark); text-decoration: none; letter-spacing: -0.5px; }
+    .logo span { color: var(--primary); }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--primary); }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 22px; border-radius: 12px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: all 0.2s; border: none; cursor: pointer; }
+    .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 14px rgba(255, 90, 31, 0.35); }
+    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
+    .btn-secondary { background: #E2E8F0; color: var(--dark); }
+    .btn-secondary:hover { background: #CBD5E1; }
+
+    /* Hero */
+    .hero {
+      padding: 60px 5% 70px; max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+    }
+    .hero-tag { display: inline-flex; background: #FFF5F2; color: var(--primary); font-weight: 700; font-size: 0.85rem; padding: 6px 14px; border-radius: 30px; margin-bottom: 16px; border: 1px solid rgba(255, 90, 31, 0.2); }
+    .hero-title { font-size: 3.4rem; line-height: 1.1; font-weight: 900; margin-bottom: 20px; }
+    .hero-title span { color: var(--primary); }
+    .hero-desc { font-size: 1.1rem; color: var(--gray-text); margin-bottom: 28px; }
+
+    .hero-card { position: relative; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-lg); }
+    .hero-card img { width: 100%; height: 420px; object-fit: cover; display: block; }
+    .hero-floating-badge {
+      position: absolute; bottom: 20px; left: 20px; background: white; padding: 14px 20px; border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 12px;
+    }
+
+    /* Interactive Menu */
+    .section { padding: 60px 5%; max-width: 1280px; margin: 0 auto; }
+    .section-title { text-align: center; font-size: 2.3rem; font-weight: 800; margin-bottom: 10px; }
+    .section-sub { text-align: center; color: var(--gray-text); margin-bottom: 30px; }
+
+    .filter-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+    .tab-btn { padding: 8px 18px; border-radius: 20px; border: 1px solid #CBD5E1; background: white; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .tab-btn.active, .tab-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .menu-card { background: white; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid #E2E8F0; box-shadow: var(--shadow-sm); transition: transform 0.2s; }
+    .menu-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .menu-card-img { width: 100%; height: 190px; object-fit: cover; }
+    .menu-card-body { padding: 20px; }
+    .menu-card-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .menu-card-title { font-size: 1.2rem; font-weight: 800; }
+    .menu-card-price { font-weight: 800; color: var(--primary); font-size: 1.1rem; }
+    .menu-card-desc { font-size: 0.9rem; color: var(--gray-text); margin-bottom: 16px; }
+
+    /* Catering Calculator Section */
+    .catering-box {
+      background: linear-gradient(135deg, var(--dark-card), #0F172A); color: white;
+      border-radius: 28px; padding: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin: 40px auto; max-width: 1280px;
+    }
+    .catering-form { background: white; color: var(--dark); padding: 28px; border-radius: 20px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 6px; }
+    .form-control { width: 100%; padding: 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-family: inherit; }
+
+    .calc-result { background: #F1F5F9; border-radius: 12px; padding: 16px; margin-top: 16px; text-align: center; }
+    .calc-price { font-size: 1.8rem; font-weight: 900; color: var(--primary); }
+
+    /* Floating Pitch Bar for your Demo */
+    .pitch-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(90deg, #4F46E5, #7C3AED);
+      color: white; padding: 14px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 2000; box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+    }
+    .pitch-info strong { font-size: 0.95rem; }
+    .pitch-info p { font-size: 0.8rem; opacity: 0.9; }
+
+    @media (max-width: 850px) {
+      .hero, .catering-box { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero-title { font-size: 2.5rem; }
+      .pitch-bar { flex-direction: column; text-align: center; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-bar">
+    <span class="badge-open">OPEN NOW</span>
+    <span>Mon - Sat: 10:30 AM - 9:00 PM • 115 S 2nd W, Rexburg, ID (Near Broulim's)</span>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="#" class="logo">KAINOA'S <span>HAWAIIAN</span></a>
+    <ul class="nav-links">
+      <li><a href="#menu">Popular Combos</a></li>
+      <li><a href="#catering">BYU-I Catering</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#location">Find Us</a></li>
+    </ul>
+    <button class="btn btn-primary" onclick="alert('Connects directly to your Menufy/POS checkout link without any middleman fees!')">Order Direct Pickup</button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div>
+      <div class="hero-tag">🌺 Authentic Island Plate Lunches</div>
+      <h1 class="hero-title">Taste the Island Vibe Right Here in <span>Rexburg</span></h1>
+      <p class="hero-desc">Crispy Katsu Chicken, smoked Kalua Pork, house-made Teriyaki, and signature creamy Mac Salad. Prepared fresh daily for pickup and delivery.</p>
+      <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+        <a href="#menu" class="btn btn-primary">Browse Visual Menu</a>
+        <a href="#catering" class="btn btn-secondary">Request Catering Quote</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Hawaiian BBQ Combo Plate">
+      <div class="hero-floating-badge">
+        <span style="font-size: 1.5rem;">🔥</span>
+        <div>
+          <div style="font-weight: 800; font-size: 0.9rem;">#1 Most Liked in Rexburg</div>
+          <div style="font-size: 0.8rem; color: var(--gray-text);">3 Meat Combo Plate Lunch</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visual Interactive Menu -->
+  <section id="menu" class="section" style="background: white;">
+    <h2 class="section-title">Fan Favorites Menu</h2>
+    <p class="section-sub"> Tap a category to filter or order your favorites instantly.</p>
+
+    <div class="filter-tabs">
+      <button class="tab-btn active" onclick="filterMenu('all')">All Items</button>
+      <button class="tab-btn" onclick="filterMenu('combos')">Plate Combos</button>
+      <button class="tab-btn" onclick="filterMenu('fries')">Signature Ono Fries</button>
+      <button class="tab-btn" onclick="filterMenu('gluten')">Gluten Free Options</button>
+    </div>
+
+    <div class="menu-grid" id="menu-container">
+      <!-- Item 1 -->
+      <div class="menu-card" data-cat="combos">
+        <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=600&q=80" class="menu-card-img" alt="Chicken Katsu">
+        <div class="menu-card-body">
+          <div class="menu-card-header">
+            <span class="menu-card-title">Katsu Chicken Combo</span>
+            <span class="menu-card-price">$12.99</span>
+          </div>
+          <p class="menu-card-desc">Crispy golden breaded chicken fillet served with homemade dipping sauce, 1 scoop rice, and signature mac salad.</p>
+          <button class="btn btn-secondary" style="width: 100%;" onclick="alert('Opens instant order item in your Menufy drawer')">Add to Quick Order</button>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="menu-card" data-cat="combos">
+        <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=600&q=80" class="menu-card-img" alt="Kalua Pork">
+        <div class="menu-card-body">
+          <div class="menu-card-header">
+            <span class="menu-card-title">3 Meat Combo Plate</span>
+            <span class="menu-card-price">$15.49</span>
+          </div>
+          <p class="menu-card-desc">Your choice of 3 meats (Pork, Katsu, Teriyaki Chicken), scoop of rice, scoop of mac salad, and a 20oz drink.</p>
+          <button class="btn btn-secondary" style="width: 100%;" onclick="alert('Opens instant order item in your Menufy drawer')">Add to Quick Order</button>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="menu-card" data-cat="fries">
+        <img src="https://images.unsplash.com/photo-1576107232684-1279f3908594?auto=format&fit=crop&w=600&q=80" class="menu-card-img" alt="Ono Fries">
+        <div class="menu-card-body">
+          <div class="menu-card-header">
+            <span class="menu-card-title">Large Ono Fries</span>
+            <span class="menu-card-price">$12.99</span>
+          </div>
+          <p class="menu-card-desc">Crispy battered fries smothered in Ranch, Waikiki Dressing, shredded cabbage, and chopped Chicken Katsu.</p>
+          <button class="btn btn-secondary" style="width: 100%;" onclick="alert('Opens instant order item in your Menufy drawer')">Add to Quick Order</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- High-Margin Catering Capture Section -->
+  <section id="catering" style="padding: 0 5%;">
+    <div class="catering-box">
+      <div>
+        <span style="color: var(--accent-yellow); font-weight: 800; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;">BYU-Idaho & Event Catering</span>
+        <h2 style="font-size: 2.2rem; margin: 10px 0;">Host Your Next Party with Kainoa's</h2>
+        <p style="color: #94A3B8; margin-bottom: 20px;">We deliver bulk protein pans, rice, and sides complete with serving utensils and dressings. Ideal for student society gatherings, sports teams, and family events.</p>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; color: #E2E8F0; font-size: 0.95rem;">
+          <li>✓ Minimum order starts at just $100</li>
+          <li>✓ Complete utensil & sauce packages included</li>
+          <li>✓ Direct delivery across Rexburg & BYU-I Campus</li>
+        </ul>
+      </div>
+
+      <!-- Interactive Lead Calculator -->
+      <div class="catering-form">
+        <h3 style="margin-bottom: 14px; font-size: 1.25rem;">Instant Catering Estimator</h3>
+        <div class="form-group">
+          <label>Estimated Headcount</label>
+          <input type="number" id="guestCount" class="form-control" value="20" min="5" oninput="updateEstimate()">
+        </div>
+        <div class="form-group">
+          <label>Package Style</label>
+          <select id="packageType" class="form-control" onchange="updateEstimate()">
+            <option value="15">2 Meat Package ($15/person)</option>
+            <option value="13">Wrap Package ($13/person)</option>
+            <option value="11">Salad Package ($11/person)</option>
+          </select>
+        </div>
+
+        <div class="calc-result">
+          <div style="font-size: 0.8rem; color: var(--gray-text); font-weight: 700; text-transform: uppercase;">Estimated Total</div>
+          <div class="calc-price" id="totalEstimate">$300.00</div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%; margin-top: 14px;" onclick="alert('Captures lead immediately and sends notification SMS/Email to management!')">Submit Catering Request</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pitch Demo Bottom Bar -->
+  <div class="pitch-bar">
+    <div class="pitch-info">
+      <strong>💡 Redesign Demo for Kainoa's Hawaiian Grill</strong>
+      <p>Showcasing visual menus & instant catering lead generation built for mobile local traffic.</p>
+    </div>
+    <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 0.8rem;" onclick="window.scrollTo({top:0, behavior:'smooth'})">Back to Top ↑</button>
+  </div>
+
+  <script>
+    // Menu Filter Logic
+    function filterMenu(category) {
+      const cards = document.querySelectorAll('.menu-card');
+      const tabs = document.querySelectorAll('.tab-btn');
+      
+      tabs.forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-cat') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Catering Calculator Logic
+    function updateEstimate() {
+      const guests = parseInt(document.getElementById('guestCount').value) || 0;
+      const rate = parseInt(document.getElementById('packageType').value) || 0;
+      const total = guests * rate;
+      document.getElementById('totalEstimate').innerText = '$' + total.toFixed(2);
+    }
+  </script>
+</body>
+</html>
